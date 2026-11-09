@@ -82,6 +82,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.settingsWindowController.show()
   }
 
+  @objc func flickerTestClicked(_: AnyObject) {
+    os_log("Flicker test clicked", type: .info)
+    menu.closeMenu()
+    FlickerTestWindowController.show()
+  }
+
   private func currentReopenSenderBundleIdentifier() -> String? {
     guard let event = NSAppleEventManager.shared().currentAppleEvent else { return nil }
     if let pid = event.attributeDescriptor(forKeyword: keySenderPIDAttr)?.int32Value,

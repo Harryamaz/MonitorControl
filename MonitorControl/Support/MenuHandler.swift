@@ -273,6 +273,18 @@ class MenuHandler: NSMenu, NSMenuDelegate {
       quitIcon.imageScaling = .scaleProportionallyUpOrDown
       quitIcon.action = #selector(app.quitClicked)
 
+      let flickerIcon = NSButton()
+      flickerIcon.bezelStyle = .regularSquare
+      flickerIcon.isBordered = false
+      flickerIcon.setButtonType(.momentaryChange)
+      flickerIcon.image = NSImage(systemSymbolName: "waveform.path", accessibilityDescription: NSLocalizedString("PWM Flicker Test…", comment: "Shown in menu"))
+      flickerIcon.alphaValue = 0.3
+      flickerIcon.toolTip = NSLocalizedString("PWM Flicker Test…", comment: "Shown in menu")
+      flickerIcon.frame = NSRect(x: menuItemView.frame.maxX - iconSize * 4 - 26 - 17 + compensateForBlock, y: menuItemView.frame.origin.y + 5, width: iconSize, height: iconSize)
+      flickerIcon.imageScaling = .scaleProportionallyUpOrDown
+      flickerIcon.action = #selector(app.flickerTestClicked)
+
+      menuItemView.addSubview(flickerIcon)
       menuItemView.addSubview(settingsIcon)
       menuItemView.addSubview(updateIcon)
       menuItemView.addSubview(quitIcon)
@@ -283,6 +295,7 @@ class MenuHandler: NSMenu, NSMenuDelegate {
       if app.macOS10() {
         self.insertItem(NSMenuItem.separator(), at: self.items.count)
       }
+      self.insertItem(withTitle: NSLocalizedString("PWM Flicker Test…", comment: "Shown in menu"), action: #selector(app.flickerTestClicked), keyEquivalent: "", at: self.items.count)
       self.insertItem(withTitle: NSLocalizedString("Settings…", comment: "Shown in menu"), action: #selector(app.prefsClicked), keyEquivalent: ",", at: self.items.count)
       let updateItem = NSMenuItem(title: NSLocalizedString("Check for updates…", comment: "Shown in menu"), action: #selector(app.updaterController.checkForUpdates(_:)), keyEquivalent: "")
       updateItem.target = app.updaterController

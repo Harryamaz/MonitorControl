@@ -125,6 +125,12 @@ enum PrefKey: String {
   /// Friendly name
   case friendlyName
 
+  /// Flicker-free floor enabled (Apple displays): hardware brightness never drops below pwmFloor, software dimming is used below it
+  case pwmFloorEnabled
+
+  /// Flicker-free floor value (0...1 hardware brightness)
+  case pwmFloor
+
   /* -- Display+Command specific settings -- */
 
   /// Command value display
